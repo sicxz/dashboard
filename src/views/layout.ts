@@ -30,7 +30,7 @@ function extractDomain(url: string): string {
   }
 }
 
-export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
+export function renderDashboard(panels: PanelData[]) {
   const totalLinks = panels.reduce((sum, p) => sum + p.categories.reduce((s, c) => s + c.links.length, 0), 0);
   const totalCategories = panels.reduce((sum, p) => sum + p.categories.length, 0);
   const now = new Date();
@@ -65,23 +65,23 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
       --color-border-default: #444c56;
       --color-border-muted: #373e47;
       --color-border-subtle: #2d333b;
-      --color-fg-default: #adbac7;
-      --color-fg-muted: #768390;
-      --color-fg-subtle: #545d68;
-      --color-fg-on-emphasis: #cdd9e5;
-      --color-accent-fg: #539bf5;
-      --color-accent-emphasis: #316dca;
-      --color-accent-muted: #539bf540;
-      --color-accent-subtle: #539bf510;
-      --color-danger-fg: #e5534b;
-      --color-danger-subtle: #e5534b20;
-      --color-success-fg: #57ab5a;
-      --color-neutral-emphasis-plus: #636e7b;
-      --color-neutral-muted: #636e7b40;
+      --color-fg-default: #ffffff;
+      --color-fg-muted: #00e5ff;
+      --color-fg-subtle: #e2b2ff;
+      --color-fg-on-emphasis: #ffffff;
+      --color-accent-fg: #00e5ff;
+      --color-accent-emphasis: #0077ff;
+      --color-accent-muted: #00e5ff40;
+      --color-accent-subtle: #00e5ff10;
+      --color-danger-fg: #ff0055;
+      --color-danger-subtle: #ff005520;
+      --color-success-fg: #39ff14;
+      --color-neutral-emphasis-plus: #a0aab5;
+      --color-neutral-muted: #a0aab540;
 
       /* Command center accent override */
-      --accent: #539bf5;
-      --accent-glow: #539bf540;
+      --accent: #00e5ff;
+      --accent-glow: #00e5ff40;
 
       /* Primer spacing (base-8 scale, +10px uplift) */
       --space-1: 4px;
@@ -100,12 +100,12 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
 
       /* Typography */
       --fontFamily-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', ui-monospace, monospace;
-      --text-body-size-small: 0.75rem;
-      --text-body-size-medium: 0.8125rem;
-      --text-body-size-large: 0.875rem;
-      --text-caption-size: 0.6875rem;
-      --text-title-size: 1rem;
-      --text-body-lineHeight: 1.5;
+      --text-body-size-small: 0.875rem;
+      --text-body-size-medium: 1rem;
+      --text-body-size-large: 1.125rem;
+      --text-caption-size: 0.875rem;
+      --text-title-size: 1.5rem;
+      --text-body-lineHeight: 1.6;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -617,13 +617,13 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
   <nav class="panel-switcher">
     <div class="panel-tabs">
       ${panels.map(
-        (panel, i) => html`
+    (panel, i) => html`
           <button class="panel-tab${i === 0 ? ' active' : ''}" data-panel-id="${panel.id}" onclick="switchPanel(${panel.id})">
             ${panel.name}
             <span class="panel-delete" onclick="event.stopPropagation(); deletePanel(${panel.id})" title="Delete context">&times;</span>
           </button>
         `
-      )}
+  )}
     </div>
     <div class="actions">
       <button class="btn btn-default" onclick="openModal('addPanelModal')">+ context</button>
@@ -635,19 +635,19 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
       <div class="panel-content${i === 0 ? ' active' : ''}" data-panel-id="${panel.id}">
         <div class="category-bar">
           ${panel.categories.map(
-            (cat) => html`
+      (cat) => html`
               <span class="category-chip">
                 ${cat.name}
                 <span class="delete-cat" onclick="deleteCategory(${cat.id})" title="Delete module">&times;</span>
               </span>
             `
-          )}
+    )}
           <button class="btn btn-default" onclick="openModal('addCategoryModal')">+ module</button>
         </div>
 
         <main class="grid" data-panel-id="${panel.id}">
           ${panel.categories.map(
-            (cat) => html`
+      (cat) => html`
               <div class="card" data-category-id="${cat.id}">
                 <div class="card-header">
                   <span class="drag-handle card-handle"></span>
@@ -656,9 +656,9 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
                 </div>
                 <div class="link-list" data-category-id="${cat.id}">
                   ${cat.links.length === 0
-                    ? html`<div class="card-empty">-- empty --</div>`
-                    : cat.links.map(
-                        (link) => html`
+          ? html`<div class="card-empty">-- empty --</div>`
+          : cat.links.map(
+            (link) => html`
                           <div class="link-item" data-link-id="${link.id}">
                             <span class="drag-handle link-handle"></span>
                             <img src="${link.favicon || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 rx=%222%22 fill=%22%232d333b%22/></svg>'}" alt="" width="16" height="16" loading="lazy">
@@ -672,11 +672,11 @@ export function renderDashboard(panels: PanelData[]): HtmlEscapedString {
                             </div>
                           </div>
                         `
-                      )}
+          )}
                 </div>
               </div>
             `
-          )}
+    )}
         </main>
       </div>
     `
