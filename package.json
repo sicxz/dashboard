@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "start": "bun run db:push && bun run src/index.ts",
+    "start": "mkdir -p data && bun run db:push && bun run src/index.ts",
     "db:push": "bunx drizzle-kit push",
     "db:studio": "bunx drizzle-kit studio"
   },
